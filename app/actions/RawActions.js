@@ -4,6 +4,12 @@ import fetch from 'isomorphic-fetch';
 
 const rawData = './data/sample.json';
 
+export function refreshRandomData() {
+  return {
+    type: types.REFRESH_RANDOM_DATA,
+  };
+}
+
 export function setRaw(raw) {
   return {
     type: types.SET_RAW,
