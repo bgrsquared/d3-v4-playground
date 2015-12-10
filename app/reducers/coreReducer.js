@@ -19,7 +19,7 @@ export default function coreReducer(state = initialState, action) {
     case SET_FILTER:
       return state;
     case REFRESH_RANDOM_DATA:
-      const n = Math.floor(Math.random() * 10) + 2;
+      const n = 5; // Math.floor(Math.random() * 10) + 2;
       const fakeData = Array.from({ length: n }, () => {
         return {
           x: rand(),
