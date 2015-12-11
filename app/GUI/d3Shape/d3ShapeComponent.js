@@ -3,35 +3,19 @@ import { Button } from 'react-bootstrap';
 import { spring, Motion } from 'react-motion';
 require('./d3ShapeStyle.scss');
 
-import { line } from 'd3-shape';
+import { line, cardinalClosed } from 'd3-shape';
 import { linear } from 'd3-scale';
 import { lab } from 'd3-interpolate';
 
 export default class d3ShapeComponent extends Component {
-  constructor() {
-    super();
-    this.state = {
-      open: false,
-    };
-  }
-
   componentDidMount() {
     const { refreshRandomData } = this.props;
     refreshRandomData();
   }
 
-  handleMouseDown() {
-    this.setState({ open: !this.state.open });
-  }
-
-  handleTouchStart(e) {
-    e.preventDefault();
-    this.handleMouseDown();
-  }
-
   render() {
     const { app, refreshRandomData } = this.props;
-    const { fakeData } = app;
+    const { fakeData, nFakeData } = app;
 
     const width = 500;
     const height = 500;
@@ -44,6 +28,7 @@ export default class d3ShapeComponent extends Component {
       .range([height, 0]);
 
     const lineGenerator = line()
+      .curve(cardinalClosed)
       .x(d => xScale(d.x))
       .y(d => yScale(d.y));
 
@@ -56,56 +41,31 @@ export default class d3ShapeComponent extends Component {
     const col = lab('steelblue', 'orangered');
 
     return (<div>
-      <h1>d3-shape</h1>
-      <button
-        onMouseDown={this.handleMouseDown.bind(this)}
-        onTouchStart={this.handleTouchStart.bind(this)}>
-        Toggle
-      </button>
-
-      <Motion style={{ x: spring(this.state.open ? 400 : 0, [50, 7]) }}>
-        {({ x }) =>
-          <div className="demo0">
-            <div className="demo0-block" style={{
-                WebkitTransform: `translate3d(${x}px, 0, 0)`,
-                transform: `translate3d(${x}px, 0, 0)`,
-              }}>{Math.round(x)}
-              <svg height={'50px'} width={'50px'}>
-                <circle
-                  cx={25}
-                  cy={25}
-                  r={Math.max(0, 20 * x / 400)}
-                />
-              </svg>
-            </div>
-          </div>
-        }
-      </Motion>
+      <h1>d3.v4 & react </h1>
+      <h2>Path with {nFakeData} nodes (closed, cardinal)</h2>
+      <p>Reactjs rendering d3-shape line</p>
+      <p>Animations using react-motion (path, stroke-width, color)</p>
       <Button onClick={() => refreshRandomData()}>Refresh Data!</Button>
       <div style={{ marginLeft: '10px' }}>
 
         <Motion style={{
           sw: spring(Math.floor(Math.random() * 50), [50, 7]),
           color: spring(Math.random(), [50, 7]),
-           ...pathVars
+           ...pathVars,
+           pathKeys: Object.keys(pathVars),
         }}>
-          {({ sw, color, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4 }) => {
+          {inter => {
+            const { pathKeys } = inter;
             const myData = fakeData;
-            if (myData.length) {
-              myData[0].x = x0;
-              myData[0].y = y0;
-              myData[1].x = x1;
-              myData[1].y = y1;
-              myData[2].x = x2;
-              myData[2].y = y2;
-              myData[3].x = x3;
-              myData[3].y = y3;
-              myData[4].x = x4;
-              myData[4].y = y4;
-            }
-            return <svg height={height} width={width} stroke={col(color)}
-                        strokeWidth={sw + 'px'} fill="none">
-              <path d={lineGenerator(myData)}/>
+
+            pathKeys.map(k => {
+              const coord = k.substr(0, 1);
+              const no = +k.substr(1);
+              myData[no][coord] = inter[k];
+            });
+            return <svg height={height} width={width} stroke={col(inter.color)}
+                        strokeWidth={inter.sw/10 + 'px'} fill="none">
+              <path d={lineGenerator(fakeData)}/>
             </svg>
           }
           }

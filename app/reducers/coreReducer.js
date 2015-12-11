@@ -4,34 +4,23 @@ import {
   REFRESH_RANDOM_DATA,
 } from '../constants/ActionTypes';
 
-const initialState = {
-  someItem: 'foo',
-  fakeData: [
-    {
-      x: 0,
-      y: 0,
-    },
-    {
-      x: 0,
-      y: 0,
-    },
-    {
-      x: 0,
-      y: 0,
-    },
-    {
-      x: 0,
-      y: 0,
-    },
-    {
-      x: 0,
-      y: 0,
-    },
-  ],
-  raw: [],
+const n = 100;
+const rand = () => Math.random() * 100;
+const createFakeData = () => {
+  return Array.from({ length: n }, () => {
+    return {
+      x: rand(),
+      y: rand(),
+    };
+  });
 };
 
-const rand = () => Math.random() * 100;
+const initialState = {
+  nFakeData: n,
+  someItem: 'foo',
+  fakeData: createFakeData(),
+  raw: [],
+};
 
 export default function coreReducer(state = initialState, action) {
   switch (action.type) {
@@ -40,13 +29,7 @@ export default function coreReducer(state = initialState, action) {
     case SET_FILTER:
       return state;
     case REFRESH_RANDOM_DATA:
-      const n = 5; // Math.floor(Math.random() * 10) + 2;
-      const fakeData = Array.from({ length: n }, () => {
-        return {
-          x: rand(),
-          y: rand(),
-        };
-      });
+      const fakeData = createFakeData();
       return Object.assign({}, state, { fakeData });
     default:
       return state;
