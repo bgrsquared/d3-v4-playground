@@ -6,7 +6,28 @@ import {
 
 const initialState = {
   someItem: 'foo',
-  fakeData: [],
+  fakeData: [
+    {
+      x: 0,
+      y: 0,
+    },
+    {
+      x: 0,
+      y: 0,
+    },
+    {
+      x: 0,
+      y: 0,
+    },
+    {
+      x: 0,
+      y: 0,
+    },
+    {
+      x: 0,
+      y: 0,
+    },
+  ],
   raw: [],
 };
 

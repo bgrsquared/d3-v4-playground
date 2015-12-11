@@ -5,6 +5,7 @@ require('./d3ShapeStyle.scss');
 
 import { line } from 'd3-shape';
 import { linear } from 'd3-scale';
+import { lab } from 'd3-interpolate';
 
 export default class d3ShapeComponent extends Component {
   constructor() {
@@ -46,22 +47,13 @@ export default class d3ShapeComponent extends Component {
       .x(d => xScale(d.x))
       .y(d => yScale(d.y));
 
-    console.log(fakeData);
     const pathVars = {};
-    fakeData.map((d,i) => {
-      pathVars['x' + i] = spring(Math.random() * 100, [50, 7]);
-      pathVars['y' + i] = spring(Math.random() * 100, [50, 7]);
+    fakeData.map((d, i) => {
+      pathVars['x' + i] = spring(d.x, [50, 7]);
+      pathVars['y' + i] = spring(d.y, [50, 7]);
     });
-    pathVars.x0 = spring((Math.random() * 100), [50, 7]);
-    pathVars.y0 = spring((Math.random() * 100), [50, 7]);
-    pathVars.x1 = spring((Math.random() * 100), [50, 7]);
-    pathVars.y1 = spring((Math.random() * 100), [50, 7]);
-    pathVars.x2 = spring((Math.random() * 100), [50, 7]);
-    pathVars.y2 = spring((Math.random() * 100), [50, 7]);
-    pathVars.x3 = spring((Math.random() * 100), [50, 7]);
-    pathVars.y3 = spring((Math.random() * 100), [50, 7]);
-    pathVars.x4 = spring((Math.random() * 100), [50, 7]);
-    pathVars.y4 = spring((Math.random() * 100), [50, 7]);
+
+    const col = lab('steelblue', 'orangered');
 
     return (<div>
       <h1>d3-shape</h1>
@@ -94,18 +86,10 @@ export default class d3ShapeComponent extends Component {
 
         <Motion style={{
           sw: spring(Math.floor(Math.random() * 50), [50, 7]),
-           x0: pathVars.x0,
-           y0: pathVars.y0,
-           x1: pathVars.x1,
-           y1: pathVars.y1,
-           x2: pathVars.x2,
-           y2: pathVars.y2,
-           x3: pathVars.x3,
-           y3: pathVars.y3,
-           x4: pathVars.x4,
-           y4: pathVars.y4,
+          color: spring(Math.random(), [50, 7]),
+           ...pathVars
         }}>
-          {({ sw, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4 }) => {
+          {({ sw, color, x0, y0, x1, y1, x2, y2, x3, y3, x4, y4 }) => {
             const myData = fakeData;
             if (myData.length) {
               myData[0].x = x0;
@@ -119,7 +103,7 @@ export default class d3ShapeComponent extends Component {
               myData[4].x = x4;
               myData[4].y = y4;
             }
-            return <svg height={height} width={width} stroke="red"
+            return <svg height={height} width={width} stroke={col(color)}
                         strokeWidth={sw + 'px'} fill="none">
               <path d={lineGenerator(myData)}/>
             </svg>
