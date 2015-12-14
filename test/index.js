@@ -1,0 +1,2 @@
+require('./testSomeFunction');
+require('./testSomeComponent');
