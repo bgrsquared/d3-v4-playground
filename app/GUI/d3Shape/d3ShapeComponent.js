@@ -16,6 +16,7 @@ export default class d3ShapeComponent extends Component {
   render() {
     const { app, refreshRandomData } = this.props;
     const { fakeData, nFakeData } = app;
+    const springParams = [50, 7];
 
     const width = 500;
     const height = 500;
@@ -40,10 +41,11 @@ export default class d3ShapeComponent extends Component {
 
     const col = lab('steelblue', 'orangered');
 
-    return (<div>
+    return (<div style={{marginLeft: '20px'}}>
       <h1>d3.v4 & react </h1>
-      <h2>Path with {nFakeData} nodes (closed, cardinal)</h2>
-      <p>Reactjs rendering d3-shape line</p>
+      <p>Path with {nFakeData} nodes (closed, cardinal)</p>
+      <p>reactjs rendering "d3-shape" line</p>
+      <p>Data provided by redux</p>
       <p>Animations using react-motion (path, stroke-width, color)</p>
       <Button onClick={() => refreshRandomData()}>Refresh Data!</Button>
       <div style={{ marginLeft: '10px' }}>
