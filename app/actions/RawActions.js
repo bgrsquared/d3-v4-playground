@@ -10,6 +10,13 @@ export function refreshRandomData() {
   };
 }
 
+export function setObject(object) {
+  return {
+    type: types.SET_OBJECT,
+    object,
+  };
+}
+
 export function setRaw(raw) {
   return {
     type: types.SET_RAW,

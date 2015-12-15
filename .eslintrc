@@ -3,5 +3,8 @@
   "rules": {
     "indent": [0],
     "react/no-multi-comp": [0]
+  },
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true
   }
 }

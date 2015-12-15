@@ -1,4 +1,4 @@
 // COORDINATE HIGHLIGHTS
 export const SET_RAW = 'SET_RAW';
-export const SET_FILTER = 'SET_FILTER';
+export const SET_OBJECT = 'SET_OBJECT';
 export const REFRESH_RANDOM_DATA = 'REFRESH_RANDOM_DATA';

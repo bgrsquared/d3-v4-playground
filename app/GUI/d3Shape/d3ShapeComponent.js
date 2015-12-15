@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { spring, Motion } from 'react-motion';
 require('./d3ShapeStyle.scss');
 
-import { line, cardinalClosed } from 'd3-shape';
+import { line, linear as linearInterpolation,
+  linearClosed, cardinal, cardinalClosed } from 'd3-shape';
 import { linear } from 'd3-scale';
 import { lab } from 'd3-interpolate';
 
@@ -14,9 +15,27 @@ export default class d3ShapeComponent extends Component {
   }
 
   render() {
-    const { app, refreshRandomData } = this.props;
-    const { fakeData, nFakeData } = app;
+    const { app, refreshRandomData, setObject } = this.props;
+    const { fakeData, nFakeData, pathType } = app;
     const springParams = [50, 7];
+
+    let pt;
+    switch (pathType) {
+      case 'cardinal':
+        pt = cardinal;
+        break;
+      case 'linear':
+        pt = linearInterpolation;
+        break;
+      case 'cardinalClosed':
+        pt = cardinalClosed;
+        break;
+      case 'linearClosed':
+        pt = linearClosed;
+        break;
+      default:
+        pt = linearInterpolation;
+    }
 
     const width = 500;
     const height = 500;
@@ -29,7 +48,7 @@ export default class d3ShapeComponent extends Component {
       .range([height, 0]);
 
     const lineGenerator = line()
-      .curve(cardinalClosed)
+      .curve(pt)
       .x(d => xScale(d.x))
       .y(d => yScale(d.y));
 
@@ -41,18 +60,36 @@ export default class d3ShapeComponent extends Component {
 
     const col = lab('steelblue', 'orangered');
 
-    return (<div style={{marginLeft: '20px'}}>
+    return (<div style={{ marginLeft: '20px' }}>
       <h1>d3.v4 & react </h1>
       <p>Path with {nFakeData} nodes (closed, cardinal)</p>
       <p>reactjs rendering "d3-shape" line</p>
       <p>Data provided by redux</p>
       <p>Animations using react-motion (path, stroke-width, color)</p>
       <Button onClick={() => refreshRandomData()}>Refresh Data!</Button>
+      <ButtonGroup>
+        <Button
+          onClick={() => { setObject({ pathType: 'linear' }); }}>
+          Linear
+        </Button>
+        <Button
+          onClick={() => { setObject({ pathType: 'linearClosed' }); }}>
+          Linear Closed
+        </Button>
+        <Button
+          onClick={() => { setObject({ pathType: 'cardinalClosed' }); }}>
+          Cardinal Closed
+        </Button>
+        <Button
+          onClick={() => { setObject({ pathType: 'cardinal' }); }}>
+          Cardinal
+        </Button>
+      </ButtonGroup>
       <div style={{ marginLeft: '10px' }}>
 
         <Motion style={{
-          sw: spring(Math.floor(Math.random() * 50), [50, 7]),
-          color: spring(Math.random(), [50, 7]),
+          sw: spring(Math.floor(Math.random() * 50), springParams),
+          color: spring(Math.random(), springParams),
            ...pathVars,
            pathKeys: Object.keys(pathVars),
         }}>
@@ -65,10 +102,10 @@ export default class d3ShapeComponent extends Component {
               const no = +k.substr(1);
               myData[no][coord] = inter[k];
             });
-            return <svg height={height} width={width} stroke={col(inter.color)}
-                        strokeWidth={inter.sw/10 + 'px'} fill="none">
+            return (<svg height={height} width={width} stroke={col(inter.color)}
+                         strokeWidth={inter.sw / 10 + 'px'} fill="none">
               <path d={lineGenerator(fakeData)}/>
-            </svg>
+            </svg>);
           }
           }
         </Motion>
@@ -82,4 +119,5 @@ export default class d3ShapeComponent extends Component {
 d3ShapeComponent.propTypes = {
   app: PropTypes.object,
   refreshRandomData: PropTypes.func.isRequired,
+  setObject: PropTypes.func.isRequired,
 };
