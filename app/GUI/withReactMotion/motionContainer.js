@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
 import { bindActionCreators } from 'redux';
-import * as RawActions from '../actions/RawActions';
+import * as RawActions from '../../actions/RawActions';
 
-import MainComponent from './someComponent';
+import MotionComponent from './motionComponent';
 
 function mapStateToProps(state) {
   return {
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps,
-  mapDispatchToProps)(MainComponent);
+  mapDispatchToProps)(MotionComponent);

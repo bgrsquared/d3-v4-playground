@@ -3,6 +3,7 @@
 // BASICS
 require('react-bootstrap');
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+require('./styles/myStyles.scss');
 
 // CORE
 import React, { Component } from 'react';
@@ -19,15 +20,14 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
 import coreReducer from './reducers/coreReducer';
 
-import App from './GUI/someContainer';
+import MotionComponent from './GUI/withReactMotion/motionContainer';
+import { EntryComponent } from './GUI/entry';
 
 // Configure routes like normal
 const routes = (
-  <Route path="/" component={App}>
-    <Route path="parent" component={/* Parent */ App}>
-      <Route path="child" component={/* Child */ App}/>
-      <Route path="child/:id" component={/* Child */ App}/>
-    </Route>
+  <Route path="/" component={EntryComponent}>
+    <Route path="motion" component={MotionComponent}/>
+    <Route path="d3v4" component={MotionComponent}/>
   </Route>
 );
 
@@ -79,7 +79,6 @@ class Root extends Component {
     return (
       <div>
         {debugButton}
-        <hr/>
         <Provider store={store}>
           <ReduxRouter />
         </Provider>

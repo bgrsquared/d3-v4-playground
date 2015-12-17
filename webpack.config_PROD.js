@@ -47,7 +47,7 @@ var config = {
     app: ['./app/main.js']
   },
   output: {
-    publicPath: '/dogs/',
+    publicPath: '/d3v4/',
     path: path.resolve('./dist'),
     filename: '[name].js'
   },

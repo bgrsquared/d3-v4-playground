@@ -1,14 +1,15 @@
+/* global ga */
+
 import React, { Component, PropTypes } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { spring, /* Motion, */ TransitionMotion } from 'react-motion';
-require('./d3ShapeStyle.scss');
 
 import { line, linear as linearInterpolation,
   linearClosed, cardinal, cardinalClosed } from 'd3-shape';
 import { linear } from 'd3-scale';
 import { lab } from 'd3-interpolate';
 
-export default class d3ShapeComponent extends Component {
+export default class motionComponent extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,6 +18,9 @@ export default class d3ShapeComponent extends Component {
   }
 
   componentDidMount() {
+    if (document.location.hostname !== 'localhost') {
+      ga('send', 'pageview', '/d3v4');
+    }
     const { refreshRandomData } = this.props;
     refreshRandomData();
     window.addEventListener('resize', this.handleResize.bind(this));
@@ -136,8 +140,8 @@ export default class d3ShapeComponent extends Component {
         </Button>);
     });
 
-    return (<div style={{ marginLeft: '20px' }}>
-      <h1>d3.v4 & react </h1>
+    return (<div>
+      <h3>Motion Example</h3>
       <p>Path with {nFakeData} nodes ({pt.name} interpolation)</p>
       <p>reactjs rendering "d3-shape" line</p>
       <p>Data provided by redux</p>
@@ -205,7 +209,7 @@ export default class d3ShapeComponent extends Component {
   }
 }
 
-d3ShapeComponent.propTypes = {
+motionComponent.propTypes = {
   app: PropTypes.object,
   refreshRandomData: PropTypes.func.isRequired,
   setObject: PropTypes.func.isRequired,

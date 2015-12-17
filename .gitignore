@@ -49,14 +49,16 @@ bower_components
 # --------------------
 # Build Files
 # --------------------
-#build/*
-#!build/index.html
+build/*
+!build/index.html
 #!assets/img
 
 # --------------------
 # Public Files
 # --------------------
-#dist/*
+dist/*
+#dist/index.html
+#dist/assets/*
 
 # --------------------
 # Other
