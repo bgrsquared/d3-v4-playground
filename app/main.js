@@ -4,6 +4,7 @@
 require('react-bootstrap');
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css');
 require('./styles/myStyles.scss');
+require('../node_modules/font-awesome/css/font-awesome.min.css');
 
 // CORE
 import React, { Component } from 'react';
@@ -14,7 +15,7 @@ import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import { createHistory } from 'history';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import { devTools } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
@@ -22,10 +23,12 @@ import coreReducer from './reducers/coreReducer';
 
 import MotionComponent from './GUI/withReactMotion/motionContainer';
 import { EntryComponent } from './GUI/entry';
+import { HomeComponent } from './GUI/home';
 
 // Configure routes like normal
 const routes = (
   <Route path="/" component={EntryComponent}>
+    <IndexRoute component={HomeComponent}/>
     <Route path="motion" component={MotionComponent}/>
     <Route path="d3v4" component={MotionComponent}/>
   </Route>
