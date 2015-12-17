@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 export const EntryComponent = (props) => {
   const myPath = props.location.pathname.substr(1);
   const btns = [];
-  const lnks = ['Motion', 'Home'];
+  const lnks = ['Home', 'D3Shape', 'Motion'];
   lnks.map(l => {
     const lnk = (l === 'Home' ? '' : l.toLowerCase());
     const style = (lnk === myPath ? 'primary' : 'default');
@@ -30,8 +30,8 @@ export const EntryComponent = (props) => {
     <div>
       <h1>Experiments with d3 v4 & react</h1>
       Examples: <ButtonGroup>
-        {btns}
-      </ButtonGroup>
+      {btns}
+    </ButtonGroup>
       <hr/>
       {props.children}
     </div>

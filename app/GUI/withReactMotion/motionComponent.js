@@ -142,9 +142,9 @@ export default class motionComponent extends Component {
 
     return (<div>
       <h3>Motion Example</h3>
+      <p>In this example, we use redux for the data handling, to make it more fun.</p>
       <p>Path with {nFakeData} nodes ({pt.name} interpolation)</p>
       <p>reactjs rendering "d3-shape" line</p>
-      <p>Data provided by redux</p>
       <p>Animations using react-motion</p>
       <Button
         bsSize={"xsmall"}

@@ -3,7 +3,7 @@ import { pushState } from 'redux-router';
 import { bindActionCreators } from 'redux';
 import * as RawActions from '../../actions/RawActions';
 
-import MotionComponent from './motionComponent';
+import D3ShapeComponent from './d3ShapeComponent';
 
 function mapStateToProps(state) {
   return {
@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps,
-  mapDispatchToProps)(MotionComponent);
+  mapDispatchToProps)(D3ShapeComponent);
