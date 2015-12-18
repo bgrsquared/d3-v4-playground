@@ -43,6 +43,11 @@ export default class d3ShapeComponent extends Component {
 
     const lines = myBundle(links);
 
+    lines.map(l => {
+      l.source = l[0]; // UGLY
+      l.target = l[l.length - 1]; // UGLY
+    });
+
     this.cdmSetState(lines, nodes);
   }
 
@@ -91,14 +96,11 @@ export default class d3ShapeComponent extends Component {
         <g transform={'translate(' + radius + ', ' + radius + ')'}>
           <g>
             {lines.map((l, i) => {
-              l.source = l[0]; // UGLY
-              l.target = l[l.length - 1]; // UGLY
               let classy = 'link';
               if (l.source.name === activeNode) {
                 targets.add(l.target.name);
                 classy += ' link--source';
-              }
-              if (l.target.name === activeNode) {
+              } else if (l.target.name === activeNode) {
                 sources.add(l.source.name);
                 classy += ' link--target';
               }
