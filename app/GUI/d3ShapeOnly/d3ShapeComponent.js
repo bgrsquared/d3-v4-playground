@@ -17,6 +17,7 @@ export default class d3ShapeComponent extends Component {
     super();
     this.state = {
       tension: 0.85,
+      rotationPlus: 90,
       activeNode: '',
       size: 1000,
       lines: [],
@@ -59,12 +60,12 @@ export default class d3ShapeComponent extends Component {
   }
 
   render() {
-    const { tension, activeNode, size, lines, nodes } = this.state;
+    const { tension, activeNode, size, lines, nodes, rotationPlus } = this.state;
     const radius = size / 2;
     const lineGenerator = radialLine()
       .curve(bundle, tension)
       .radius(d => d.y)
-      .angle(d => d.x / 180 * Math.PI);
+      .angle(d => (rotationPlus + d.x) / 180 * Math.PI);
 
     const tensionButtons = [];
     const tensions = [0.25, 0.5, 0.75, 0.85, 1];
@@ -80,6 +81,20 @@ export default class d3ShapeComponent extends Component {
         </Button>);
     });
 
+    const rotationButtons = [];
+    const rotations = [0, 45, 90, 180, 270];
+    rotations.map(r => {
+      const style = (r === rotationPlus ? 'primary' : 'default');
+      rotationButtons.push(
+        <Button
+          key={'rBtn' + r}
+          bsSize={"xsmall"}
+          bsStyle={style}
+          onClick={() => { this.setState({ rotationPlus: r }); }}>
+          {r}
+        </Button>);
+    });
+
     const sources = new Set();
     const targets = new Set();
 
@@ -91,6 +106,9 @@ export default class d3ShapeComponent extends Component {
       Tension: <ButtonGroup>
       {tensionButtons}
     </ButtonGroup>
+      <br/>
+      Rotation: <ButtonGroup>{rotationButtons}</ButtonGroup>
+
       <hr/>
       <svg width={size} height={size}>
         <g transform={'translate(' + radius + ', ' + radius + ')'}>
@@ -107,6 +125,7 @@ export default class d3ShapeComponent extends Component {
               return (<LinkPath key={'path' + i}
                                 classy={classy}
                                 tension={tension}
+                                rotationPlus={rotationPlus}
                                 l={l}
                                 lineGenerator={lineGenerator}/>);
             })}
@@ -124,6 +143,7 @@ export default class d3ShapeComponent extends Component {
                 <NodeElement key={'txt' + i}
                              n={n}
                              classy={classy}
+                             rotationPlus={rotationPlus}
                              onMouseOver={() => { this.setState({ activeNode: n.name }); }}
                              onMouseOut={() => { this.setState({ activeNode: '' }); }}
                 />);

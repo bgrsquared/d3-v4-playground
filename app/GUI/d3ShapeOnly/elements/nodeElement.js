@@ -2,18 +2,20 @@ import React, { Component, PropTypes } from 'react';
 
 export default class NodeElement extends Component {
   shouldComponentUpdate(nextProps) {
-    return (nextProps.classy !== 'node' || this.props.classy !== 'node');
+    return (nextProps.classy !== 'node' ||
+    this.props.classy !== 'node' ||
+    this.props.rotationPlus !== nextProps.rotationPlus);
   }
 
   render() {
-    const { n, onMouseOver, onMouseOut, classy } = this.props;
-    return (<text
+    const { n, onMouseOver, onMouseOut, classy, rotationPlus } = this.props;
 
+    return (<text
       className={classy}
-      transform={'rotate(' + (n.x - 90) + ')translate(' +
-                 (n.y + 8) + ',0)' + (n.x < 180 ? '' : 'rotate(180)')}
+      transform={'rotate(' + (n.x + rotationPlus - 90) + ')translate(' +
+                 (n.y + 8) + ',0)' + ((n.x + rotationPlus) % 360 < 180 ? '' : 'rotate(180)')}
       dy={'.31em'}
-      textAnchor={n.x < 180 ? 'start' : 'end'}
+      textAnchor={(n.x + rotationPlus) % 360 < 180 ? 'start' : 'end'}
       onMouseOver={() => onMouseOver({ activeNode: n.name })}
       onMouseOut={() => onMouseOut({ activeNode: '' })}
     >
@@ -24,7 +26,8 @@ export default class NodeElement extends Component {
 
 NodeElement.propTypes = {
   classy: PropTypes.string,
+  n: PropTypes.object,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
-  n: PropTypes.object,
+  rotationPlus: PropTypes.number,
 };
