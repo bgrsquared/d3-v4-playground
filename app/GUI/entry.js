@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 export const EntryComponent = (props) => {
   const myPath = props.location.pathname.substr(1);
   const btns = [];
-  const lnks = ['Home', 'D3Shape', 'Motion'];
+  const lnks = ['Home', 'D3Layout', 'Motion'];
   lnks.map(l => {
     const lnk = (l === 'Home' ? '' : l.toLowerCase());
     const style = (lnk === myPath ? 'primary' : 'default');

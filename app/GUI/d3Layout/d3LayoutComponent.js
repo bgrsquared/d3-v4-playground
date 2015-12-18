@@ -12,12 +12,12 @@ const classes = require('./data/data.js');
 import LinkPath from './elements/linkPath';
 import NodeElement from './elements/nodeElement';
 
-export default class d3ShapeComponent extends Component {
+export default class d3LayoutComponent extends Component {
   constructor() {
     super();
     this.state = {
       tension: 0.85,
-      rotationPlus: 90,
+      rotationPlus: 0,
       activeNode: '',
       size: 1000,
       lines: [],
