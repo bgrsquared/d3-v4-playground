@@ -102,7 +102,19 @@ export default class d3ShapeComponent extends Component {
       <h3>React rendered paths based on d3.v3 layout (bundle/cluster)</h3>
       <a target={'_blank'}
          href={'http://bl.ocks.org/mbostock/7607999'}>(Shamelessly taken here)</a>
+      <h4>Motivation</h4>
+      <p>This example uses "old" d3.v3 layouts and combines it with the new
+      line generators, which are then rendered by react.</p>
+      <p>We are perfectly aware of the fact that this is not optimal (since we are
+      including the whole old d3 library and could just take these line generators),
+      but for the sake of an example, it's valid.</p>
+      <p>NOTE: The original example by Mike Bostock is still a bit faster. In this React code,
+      we don't/can't select links and add classes on mouseover, we rather have to traditionally
+      rerender all links. Using shouldComponentUpdate, we can get close.</p>
       <br/>
+
+      <h4>Some Examples</h4>
+
       Tension: <ButtonGroup>
       {tensionButtons}
     </ButtonGroup>
