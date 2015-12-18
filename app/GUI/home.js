@@ -11,8 +11,20 @@ export const HomeComponent = () => {
       <p>As I published a few first samples here and there, I was asked to
         provide the respective codes. Here we are:</p>
       <ul>
-        <li>Github: TODO</li>
-        <li>Medium Blog: TODO</li>
+        <li>
+          <a href={'https://github.com/bgrsquared/d3-v4-playground'}
+             target={'_blank'}>
+            <i className={'fa fa-github'}></i>
+            {' Github'}
+          </a>
+        </li>
+        <li>
+          <a href={'#'}
+             target={'_blank'}>
+            <i className={'fa fa-medium'}></i>
+            {' Medium blog post'}
+          </a>
+        </li>
       </ul>
       <p>If you have any feedback or just don't want to miss updates, find me here:</p>
       <a href={'https://twitter.com/ilikepiecharts'}
