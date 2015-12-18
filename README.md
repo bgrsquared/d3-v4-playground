@@ -1,5 +1,7 @@
 # d3-v4-playground
  
+[LIVE EXAMPLE](http://bgrsquared.com/d3v4/)
+ 
 We are using d3-v4 (most notably: [d3-shape](https://github.com/d3/d3-shape)) in react.
 
 Currently, there are 3 examples
