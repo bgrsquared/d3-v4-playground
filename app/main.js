@@ -32,6 +32,11 @@ const routes = (
     <IndexRoute component={HomeComponent}/>
     <Route path="motion" component={MotionContainer}/>
     <Route path="d3shape" component={D3ShapeContainer}/>
+    <Route path="d3v4">
+      <IndexRoute component={HomeComponent}/>
+      <Route path="motion" component={MotionContainer}/>
+      <Route path="d3shape" component={D3ShapeContainer}/>
+    </Route>
   </Route>
 );
 

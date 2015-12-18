@@ -9,6 +9,9 @@ import d3 from 'd3';
 import { packageHierarchy, packageImports } from './helpers/structure';
 const classes = require('./data/data.js');
 
+import LinkPath from './elements/linkPath';
+import NodeElement from './elements/nodeElement';
+
 export default class d3ShapeComponent extends Component {
   constructor() {
     super();
@@ -22,6 +25,8 @@ export default class d3ShapeComponent extends Component {
   }
 
   componentDidMount() {
+    // prepare some things before the rendering starts...
+
     const { size } = this.state;
     const radius = size / 2;
     const innerRadius = radius * 0.75;
@@ -42,7 +47,10 @@ export default class d3ShapeComponent extends Component {
   }
 
   cdmSetState(lines, nodes) {
-    this.setState({ lines, nodes });
+    this.setState({
+      lines,
+      nodes,
+    });
   }
 
   render() {
@@ -67,6 +75,9 @@ export default class d3ShapeComponent extends Component {
         </Button>);
     });
 
+    const sources = new Set();
+    const targets = new Set();
+
     return (<div>
       <h3>React rendered paths based on d3.v3 layout (bundle/cluster)</h3>
       <a target={'_blank'}
@@ -84,30 +95,36 @@ export default class d3ShapeComponent extends Component {
               l.target = l[l.length - 1]; // UGLY
               let classy = 'link';
               if (l.source.name === activeNode) {
+                targets.add(l.target.name);
                 classy += ' link--source';
               }
               if (l.target.name === activeNode) {
+                sources.add(l.source.name);
                 classy += ' link--target';
               }
-              return (<path key={'path' + i}
-                            className={classy}
-                            d={lineGenerator(l)}/>);
+              return (<LinkPath key={'path' + i}
+                                classy={classy}
+                                tension={tension}
+                                l={l}
+                                lineGenerator={lineGenerator}/>);
             })}
           </g>
           <g>
             {nodes.map((n, i) => {
-              return (<text
-                key={'txt' + i}
-                className={'node'}
-                transform={'rotate(' + (n.x - 90) + ')translate(' +
-                 (n.y + 8) + ',0)' + (n.x < 180 ? '' : 'rotate(180)')}
-                dy={'.31em'}
-                textAnchor={n.x < 180 ? 'start' : 'end'}
-                onMouseOver={() => this.setState({ activeNode: n.name })}
-                onMouseOut={() => this.setState({ activeNode: '' })}
-              >
-                {n.key}
-              </text>);
+              let classy = 'node';
+              if (sources.has(n.name)) {
+                classy += ' node--source';
+              }
+              if (targets.has(n.name)) {
+                classy += ' node--target';
+              }
+              return (
+                <NodeElement key={'txt' + i}
+                             n={n}
+                             classy={classy}
+                             onMouseOver={() => { this.setState({ activeNode: n.name }); }}
+                             onMouseOut={() => { this.setState({ activeNode: '' }); }}
+                />);
             })}
           </g>
         </g>
