@@ -22,6 +22,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import coreReducer from './reducers/coreReducer';
 
 import MotionContainer from './GUI/withReactMotion/motionContainer';
+import D3ShapeContainer from './GUI/d3ShapeOnly/d3ShapeOnlyContainer';
 import D3LayoutContainer from './GUI/d3Layout/d3LayoutContainer';
 import { EntryComponent } from './GUI/entry';
 import { HomeComponent } from './GUI/home';
@@ -31,10 +32,12 @@ const routes = (
   <Route path="/" component={EntryComponent}>
     <IndexRoute component={HomeComponent}/>
     <Route path="motion" component={MotionContainer}/>
+    <Route path="d3shapeonly" component={D3ShapeContainer}/>
     <Route path="d3layout" component={D3LayoutContainer}/>
     <Route path="d3v4">
       <IndexRoute component={HomeComponent}/>
       <Route path="motion" component={MotionContainer}/>
+      <Route path="d3shapeonly" component={D3ShapeContainer}/>
       <Route path="d3layout" component={D3LayoutContainer}/>
     </Route>
   </Route>

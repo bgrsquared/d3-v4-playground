@@ -7,9 +7,9 @@ export const HomeComponent = () => {
     <div>
       <h3>What's this?</h3>
       <p>This repo/blog/... has essentially started as my own playground
-      to test out the new d3 version4 in react.</p>
+        to test out the new d3 version4 in react.</p>
       <p>As I published a few first samples here and there, I was asked to
-      provide the respective codes. Here we are:</p>
+        provide the respective codes. Here we are:</p>
       <ul>
         <li>Github: TODO</li>
         <li>Medium Blog: TODO</li>
@@ -23,9 +23,17 @@ export const HomeComponent = () => {
       <h3>A word on the examples</h3>
       <p>Currently we have the following examples:</p>
       <ul>
-        <li>A very simple plain vanilla example using d3-shape (static) TODO</li>
-        <li>An example using d3-layout TODO</li>
-        <li><Link to={'/motion'}>An animated example</Link></li>
+        <li>
+          <Link to={'/d3shapeonly'}>
+            A very simple plain vanilla example using d3-shape (static)
+          </Link>
+        </li>
+        <li>
+          <Link to={'/d3layout'}>An example using d3-layouts from d3-v3</Link>
+        </li>
+        <li>
+          <Link to={'/motion'}>An animated example</Link>
+        </li>
       </ul>
     </div>
   );
