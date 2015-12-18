@@ -14,9 +14,10 @@ export const Pie = () => {
   const col = lab('darkgray', 'yellow');
 
   return (<g>
-    {arcs.map(a => {
+    {arcs.map((a, i) => {
       const ratio = Math.abs(a.startAngle - a.endAngle) / 2 / Math.PI;
       return (<path
+        key={'arc' + i}
         fill={col(ratio)}
         stroke={'white'}
         d={arcGen(a)}/>);
