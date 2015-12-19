@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import { Link } from 'react-router';
 
-export const HomeComponent = () => {
+export const HomeComponent = (props) => {
+  const { pathname } = props.location;
   return (
     <div>
       <h3>What's this?</h3>
@@ -19,7 +20,7 @@ export const HomeComponent = () => {
           </a>
         </li>
         <li>
-          <a href={'#'}
+          <a href={'https://medium.com/@ilikepiecharts/playing-with-d3-version-4-react-react-motion-3d04c6eb21c9#.u6jbmpz3a'}
              target={'_blank'}>
             <i className={'fa fa-medium'}></i>
             {' Medium blog post'}
@@ -36,17 +37,21 @@ export const HomeComponent = () => {
       <p>Currently we have the following examples:</p>
       <ul>
         <li>
-          <Link to={'/d3shapeonly'}>
+          <Link to={pathname + 'd3shapeonly'}>
             A very simple plain vanilla example using d3-shape (static)
           </Link>
         </li>
         <li>
-          <Link to={'/d3layout'}>An example using d3-layouts from d3-v3</Link>
+          <Link to={pathname + 'd3layout'}>An example using d3-layouts from d3-v3</Link>
         </li>
         <li>
-          <Link to={'/motion'}>An animated example</Link>
+          <Link to={pathname + 'motion'}>An animated example</Link>
         </li>
       </ul>
     </div>
   );
+};
+
+HomeComponent.propTypes = {
+  location: PropTypes.object,
 };

@@ -1,5 +1,3 @@
-/* global ga */
-
 import React, { Component, PropTypes } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { spring, /* Motion, */ TransitionMotion } from 'react-motion';
@@ -18,9 +16,6 @@ export default class motionComponent extends Component {
   }
 
   componentDidMount() {
-    if (document.location.hostname !== 'localhost') {
-      ga('send', 'pageview', '/d3v4');
-    }
     const { refreshRandomData } = this.props;
     refreshRandomData();
     window.addEventListener('resize', this.handleResize.bind(this));

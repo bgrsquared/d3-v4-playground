@@ -24,7 +24,7 @@ import coreReducer from './reducers/coreReducer';
 import MotionContainer from './GUI/withReactMotion/motionContainer';
 import D3ShapeContainer from './GUI/d3ShapeOnly/d3ShapeOnlyContainer';
 import D3LayoutContainer from './GUI/d3Layout/d3LayoutContainer';
-import { EntryComponent } from './GUI/entry';
+import EntryComponent from './GUI/entry';
 import { HomeComponent } from './GUI/home';
 
 // Configure routes like normal

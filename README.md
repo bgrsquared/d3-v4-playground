@@ -1,6 +1,7 @@
 # d3-v4-playground
  
 [LIVE EXAMPLE](http://bgrsquared.com/d3v4/)
+[Blog Post](https://medium.com/@ilikepiecharts/playing-with-d3-version-4-react-react-motion-3d04c6eb21c9#.u6jbmpz3a)
  
 We are using d3-v4 (most notably: [d3-shape](https://github.com/d3/d3-shape)) in react.
 
